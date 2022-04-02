@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<fieldset id="create_form">
+  <legend>Gender</legend>
+  <%= button_to 'Edit', edit_gender_path(@gender), method: :get, class: :edit_button %>
+
+<p>
+  <strong>Name:</strong>
+  <%= @gender.name %>
+</p>
+
+<p>
+  <strong>Users:</strong>
+</p>
+<% if @gender.users.count > 0 %>
+  <% @gender.users.each do |user| %>
+    <%= link_to user.full_name, user %><br/>
+  <% end %>
+<% else %>
+  <p>-</p>
+<% end %>
+
+</fieldset>

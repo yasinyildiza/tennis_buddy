@@ -1,0 +1,11 @@
+<fieldset id="create_form">
+  <legend>Actions</legend>
+
+<p><%= button_to "Invite a friend", new_invited_user_path, method: :get, class: :actionbutton %></p>
+<p><%= button_to "Send message", new_message_path, method: :get, class: :actionbutton %></p>
+<p><%= button_to "Rate", new_rating_path, method: :get, class: :actionbutton %></p>
+<% if current_user.city %>
+	<p><%= button_to "Broadcast message to #{current_user.city.name}", new_broadcast_to_city_path, method: :get, class: :actionbutton %></p>
+<% end %>
+
+</fieldset>

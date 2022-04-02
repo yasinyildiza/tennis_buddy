@@ -1,0 +1,19 @@
+<%= simple_form_for(@match_set) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+	<% if @user_match %>
+		<%= f.input :user_match_id, as: :hidden, input_html: {value: @user_match.id} %>
+		<%= f.input :home_user_score, label: false, input_html: {class: :form_input}, placeholder: "#{@user_match.home_user.full_name} Score" %>
+	    <%= f.input :away_user_score, label: false, input_html: {class: :form_input}, placeholder: "#{@user_match.away_user.full_name} Score" %>
+	<% else %>
+		<%= f.input :user_match_id, collection: UserMatch.all.collect{|r| ["Match##{r.id}", r.id]}, as: :select, input_html: {class: :form_input}, label: false, prompt: "Select User Match" %>
+	    <%= f.input :home_user_score, label: false, input_html: {class: :form_input}, placeholder: "Home User Score" %>
+	    <%= f.input :away_user_score, label: false, input_html: {class: :form_input}, placeholder: "Away User Score" %>
+	<% end %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

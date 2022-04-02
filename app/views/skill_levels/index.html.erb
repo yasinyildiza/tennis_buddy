@@ -1,0 +1,33 @@
+<fieldset class="index_set">
+  <legend>Skill Levels (<%= @skill_levels.count %>)</legend>
+  <%= button_to 'New Skill Level', new_skill_level_path, method: :get, class: :new_model_button %>
+
+<% if @skill_levels.count > 0 %>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Minimum years</th>
+        <th>Maximum years</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @skill_levels.each do |skill_level| %>
+        <tr>
+          <td><%= skill_level.name %></td>
+          <td><%= skill_level.minimum_years %></td>
+          <td><%= skill_level.maximum_years %></td>
+          <td><%= link_to 'Show', skill_level %></td>
+          <td><%= link_to 'Edit', edit_skill_level_path(skill_level) %></td>
+          <td><%= link_to 'Destroy', skill_level, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <h4>No Record found</h4>
+<% end %>
+
+</fieldset>

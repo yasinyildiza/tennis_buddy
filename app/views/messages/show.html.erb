@@ -1,0 +1,30 @@
+<fieldset id="create_form">
+  <legend>Message</legend>
+  <%= button_to 'Edit', edit_message_path(@message), method: :get, class: :edit_button %>
+
+<p>
+  <strong>Sender:</strong>
+  <%= link_to @message.sender.full_name, @message.sender %>
+</p>
+
+<p>
+  <strong>Receiver:</strong>
+  <%= link_to @message.receiver.full_name, @message.receiver %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @message.title %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @message.content %>
+</p>
+
+<p>
+  <strong>Time:</strong>
+  <%= @message.created_at %>
+</p>
+
+</fieldset>

@@ -1,0 +1,47 @@
+<fieldset class="mailbox">
+  <%= button_to 'New Message', new_message_path, method: :get, class: :edit_button %>
+  <br/>
+  <br/>
+  <legend>Inbox (<%= current_user.received_messages.count %>)</legend>
+  <% if current_user.received_messages.count > 0 %>
+    <% current_user.received_messages.each_with_index do |message, index| %>
+      <fieldset>
+        <legend><%= index+1 %></legend>
+        <%= message.created_at %><br/>
+        <strong>From:</strong>
+        <%= link_to message.sender.full_name, message.sender %><br/>
+        <strong><%= message.title %></strong><br/>
+        <%= message.content %><br/>
+        <%= link_to "Delete", message, method: :delete, data: { confirm: 'Are you sure?' }, style: "float: right;" %>
+        <span style="float:right;">|</span>
+        <%= link_to "Reply", new_message_path(id: message.id), style: "float: right;" %>
+      </fieldset>
+    <% end %>
+  <% else %>
+    <p>Empty</p>
+  <% end %>
+</fieldset>
+
+<fieldset class="mailbox">
+  <%= button_to 'New Rating', new_rating_path, method: :get, class: :edit_button %>
+  <br/>
+  <br/>
+  <legend>Received Ratings (<%= current_user.received_ratings.count %>)</legend>
+  <% if current_user.received_ratings.count > 0 %>
+    <% current_user.received_ratings.each_with_index do |rating, index| %>
+      <fieldset>
+        <legend><%= index+1 %></legend>
+        <%= rating.created_at %><br/>
+        <strong>From:</strong>
+        <%= link_to rating.sender.full_name, rating.sender %><br/>
+        <strong>Rate:</strong>
+        <%= rating.rate %><br/>
+        <%= link_to "Delete", rating, method: :delete, data: { confirm: 'Are you sure?' }, style: "float: right;" %>
+        <span style="float:right;">|</span>
+        <%= link_to "Reply", new_rating_path(receiver_id: rating.sender.id), style: "float: right;" %>
+      </fieldset>
+    <% end %>
+  <% else %>
+    <p>Empty</p>
+  <% end %>
+</fieldset>

@@ -1,0 +1,80 @@
+<p id="notice"><%= notice %></p>
+
+<fieldset id="create_form">
+  <legend>User Match</legend>
+  <%= button_to 'Edit', edit_user_match_path(@user_match), method: :get, class: :edit_button %>
+
+<p>
+  <strong>Home User:</strong>
+  <%= link_to @user_match.home_user.full_name, @user_match.home_user %>
+</p>
+
+<p>
+  <strong>Away User:</strong>
+  <%= link_to @user_match.away_user.full_name, @user_match.away_user %>
+</p>
+
+<p>
+  <strong>Tennis Court:</strong>
+  <% if @user_match.tennis_court %>
+    <%= link_to @user_match.tennis_court.full_name, @user_match.tennis_court %>
+  <% else %>
+    <td>Not selected</td>
+  <% end %>
+</p>
+
+<p>
+  <strong>Number of Sets:</strong>
+  <%= @user_match.number_of_sets %>
+</p>
+
+<p>
+  <strong>Winner:</strong>
+  <% if @user_match.is_completed %>
+    <%= @user_match.winner_user.full_name %>
+  <% else %>
+    ...
+  <% end %>
+</p>
+
+<p>
+  <strong>Score:</strong>
+  <%= @user_match.home_user_score %> - <%= @user_match.away_user_score %>
+</p>
+
+<br/>
+
+
+<% unless @user_match.is_completed %>
+  <%= link_to 'New Set', new_match_set_path(user_match_id: @user_match.id), method: :get, class: "btn edit_button" %>
+<% end %>
+<br/>
+<p><strong>Sets:</strong></p>
+<% if @user_match.match_sets.count > 0 %>
+  <table>
+  	<tr>
+  	  <td><strong>Set No</strong></td>
+  	  <td><strong><%= @user_match.home_user.full_name %></strong></td>
+  	  <td><strong><%= @user_match.away_user.full_name %></strong></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <% @user_match.match_sets.each_with_index do |match_set, index| %>
+      <tr>
+        <td><strong><%= index + 1 %></strong></td>
+    	  <td><strong><%= match_set.home_user_score %></strong></td>
+    	  <td><strong><%= match_set.away_user_score %></strong></td>
+        <td>
+          <%= button_to 'Edit', edit_match_set_path(match_set), method: :get, class: :edit_button %>
+        </td>
+        <td>
+          <%= button_to 'Destroy', match_set, method: :delete, data: { confirm: 'Are you sure?' }, class: :edit_button %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  <p>The match has not started yet</p>
+<% end %>
+
+</fieldset>

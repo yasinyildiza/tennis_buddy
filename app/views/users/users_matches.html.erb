@@ -1,0 +1,55 @@
+<fieldset class="mailbox">
+  <%= button_to 'New Match', new_current_user_match_path, method: :get, class: :edit_button %>
+  <br/>
+  <br/>
+  <legend>User Matches (<%= current_user.all_matches.count %>)</legend>
+  <% if current_user.all_matches.count > 0 %>
+    <p>
+      <strong><%= current_user.matches_won.count %> W</strong>
+      <strong><%= current_user.matches_lost.count %> L</strong>
+    </p>
+    <% current_user.all_matches.each_with_index do |user_match, index| %>
+      <fieldset>
+        <legend><%= index+1 %></legend>
+        <%= user_match.created_at %><br/>
+          <p>
+            <strong>Home User:</strong>
+            <%= link_to user_match.home_user.full_name, user_match.home_user %>
+          </p>
+
+          <p>
+            <strong>Away User:</strong>
+            <%= link_to user_match.away_user.full_name, user_match.away_user %>
+          </p>
+
+          <p>
+            <strong>Tennis Court:</strong>
+            <% if user_match.tennis_court %>
+              <%= link_to user_match.tennis_court.full_name, user_match.tennis_court %>
+            <% else %>
+              <td>Not selected</td>
+            <% end %>
+          </p>
+
+          <p>
+            <strong>Winner:</strong>
+            <% if user_match.is_completed %>
+              <%= user_match.winner_user.full_name %>
+            <% else %>
+              ...
+            <% end %>
+          </p>
+
+          <p>
+            <strong>Score:</strong>
+            <%= user_match.home_user_score %> - <%= user_match.away_user_score %>
+          </p>
+        <%= link_to "Delete", user_match, method: :delete, data: { confirm: 'Are you sure?' }, style: "float: right;" %>
+        <span style="float:right;">|</span>
+        <%= link_to "Show", user_match, style: "float: right;" %>
+      </fieldset>
+    <% end %>
+  <% else %>
+    <p>Empty</p>
+  <% end %>
+</fieldset>

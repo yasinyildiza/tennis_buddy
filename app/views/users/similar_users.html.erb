@@ -1,0 +1,18 @@
+<%= render partial: "users_similar", locals: {object: :city, object_name: :name, path: "new_broadcast_to_city"} %>
+<%= render partial: "users_similar", locals: {object: :gender, object_name: :name, path: "new_broadcast_to_gender"} %>
+<%= render partial: "users_similar", locals: {object: :skill_level, object_name: :name, path: "new_broadcast_to_skill_level"} %>
+<%= render partial: "users_similar", locals: {object: :tennis_club, object_name: :full_name, path: "new_broadcast_to_tennis_club"} %>
+<%= render partial: "users_similar", locals: {object: :tennis_court, object_name: :full_name, path: "new_broadcast_to_tennis_court"} %>
+
+<fieldset class="create_form">
+  <legend>Invited friends</legend>
+  <% if current_user.invited_users.count > 0 %>
+    <% current_user.invited_users.each do |invited_user| %>
+      <%= invited_user.email %><br/>
+    <% end %>
+    <p><%= button_to "Invite a new friend", new_invited_user_path, method: :get, class: :action_button %></p>
+  <% else %>
+    <p>You haven't invite a friend</p>
+    <p><%= button_to "Invite a friend", new_invited_user_path, method: :get, class: :action_button %></p>
+  <% end %>
+</fieldset>

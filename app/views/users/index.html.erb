@@ -1,0 +1,126 @@
+<p id="notice"><%= notice %></p>
+
+<%= search_form_for @search do |f| %>
+  <fieldset id="fieldset_form">
+    <legend>Find Your Tennis Buddy</legend>
+    <div id="clean_button"><input href="#" type="button" style="float: right;" class="btn" value="Clean"/></div>
+    <br/>
+    <ul>
+      <li class="search_input">
+        <%= f.text_field :name_cont, placeholder: "Name" %>
+        <%= f.text_field :surname_cont, placeholder: "Surname" %>
+      </li>
+
+      <li class="search_input">
+        <%= f.text_field :age_gteq, placeholder: "Minimum Age" %>
+        <%= f.text_field :age_lteq, placeholder: "Maximum Age" %>
+      </li>
+
+      <li class="search_input">
+        <%= f.select :gender_id_eq, options_from_collection_for_select(Gender.all, :id, :name, @search.gender_id_eq), include_blank: "Select Gender" %>
+      </li>
+
+      <li class="search_input">
+        <%= f.select :skill_level_id_eq, options_from_collection_for_select(SkillLevel.all, :id, :full_name, @search.skill_level_id_eq), include_blank: "Select Skill Level" %>
+      </li>
+
+      <li class="search_input">
+        <%= f.select :city_id_eq, options_from_collection_for_select(City.all, :id, :name, @search.city_id_eq), include_blank: "Select City" %>
+      </li>
+
+      <li class="search_input">
+        <%= f.select :tennis_club_id_eq, options_from_collection_for_select(TennisClub.all, :id, :full_name, @search.tennis_club_id_eq), include_blank: "Select Tennis Club" %>
+      </li>
+
+      <li class="search_input">
+        <%= f.select :tennis_court_id_eq, options_from_collection_for_select(TennisCourt.all, :id, :full_name, @search.tennis_court_id_eq), include_blank: "Select Tennis Court" %>
+      </li>
+
+    </ul>
+    <div id="search_button"><%= f.submit %></div>
+  </fieldset>
+  
+<% end %>
+
+<%= render 'results' %>
+
+<% if @users.count > 0 %>
+  <br/>
+  <br/>
+
+  <fieldset id="create_form">
+    <legend>Broadcast Message</legend>
+    <%= simple_form_for @message, url: url_for(action: :broadcast_message_to_list, controller: :users, user_list: @users_hash), method: :post do |f| %>
+      <%= f.error_notification %>
+
+      <div class="form-inputs">
+        <%= f.input :sender_id, as: :hidden, input_html: {value: current_user.id} %>
+        <%= f.input :receiver_id, as: :hidden, input_html: {value: current_user.id} %>
+        <%= f.input :title, label: false, input_html: {class: :form_input}, placeholder: "Title" %>
+        <%= f.input :content, label: false, input_html: {class: :form_input}, placeholder: "Message" %>
+      </div>
+
+      <div class="form-actions">
+        <%= f.button :submit %>
+      </div>
+    <% end %>
+  </fieldset>
+<% end %>
+
+<script>
+
+$(document).ready(
+  function()
+  {
+    $("#clean_button").click(
+      function()
+      {
+        $("#q_name_cont").val("");
+        $("#q_surname_cont").val("");
+        $("#q_age_gteq").val("");
+        $("#q_age_lteq").val("");
+        $("#q_gender_id_eq").val($("#q_gender_id_eq")[0].options[0].val);
+        $("#q_skill_level_id_eq").val($("#q_skill_level_id_eq")[0].options[0].val);
+        $("#q_city_id_eq").val($("#q_city_id_eq")[0].options[0].val);
+        $("#q_tennis_club_id_eq").val($("#q_tennis_club_id_eq")[0].options[0].val);
+        $("#q_tennis_court_id_eq").val($("#q_tennis_court_id_eq")[0].options[0].val);
+      }
+    );
+
+    $("#q_city_id_eq").change(
+      function()
+      {
+        update_city($(this).val());
+      }
+    )
+
+    var current_city = $("#q_city_id_eq").val();
+    if(current_city != "")
+    {
+      update_city(current_city);
+    }
+  }
+);
+
+function update_city(city_id) {
+  update_tennis_clubs(city_id);
+  update_tennis_courts(city_id);
+}
+
+function update_tennis_clubs(city_id) {
+  $.ajax({
+      url: "/cities/update_tennis_clubs_search",
+      type: 'GET',
+      data: {"city_id": city_id}
+  });
+}
+
+function update_tennis_courts(city_id) {
+  $.ajax({
+      url: "/cities/update_tennis_courts_search",
+      type: 'GET',
+      data: {"city_id": city_id}
+  });
+}
+
+</script>

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  home_user_id: 1
+  away_user_id: 1
+  tennis_court_id: 1
+
+two:
+  home_user_id: 1
+  away_user_id: 1
+  tennis_court_id: 1

@@ -1,0 +1,31 @@
+<fieldset class="index_set">
+  <legend>Invited Users (<%= @invited_users.count %>)</legend>
+  <%= button_to 'New Invited User', new_invited_user_path, method: :get, class: :new_model_button %>
+
+<% if @invited_users.count > 0 %>
+  <table>
+    <thead>
+      <tr>
+        <th>Inviter</th>
+        <th>Email</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @invited_users.each do |invited_user| %>
+        <tr>
+          <td><%= invited_user.inviter.full_name %></td>
+          <td><%= invited_user.email %></td>
+          <td><%= link_to 'Show', invited_user %></td>
+          <td><%= link_to 'Edit', edit_invited_user_path(invited_user) %></td>
+          <td><%= link_to 'Destroy', invited_user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <h4>No Record found</h4>
+<% end %>
+
+</fieldset>

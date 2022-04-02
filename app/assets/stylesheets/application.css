@@ -1,0 +1,145 @@
+/*
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+ *= require_self
+ *= require_tree .
+ *= require jquery-ui/datepicker
+*/
+
+body {
+	width: 1330px;
+	padding: 2px;
+	border: 1px solid black;
+}
+
+.modelbutton, .actionbutton {
+	width: 200px;
+	text-align: center;
+}
+
+.action_button {
+	width: 300px;
+	text-align: center;
+}
+
+.new_model_button {
+	width: 200px;
+	text-align: center;
+	float: right;
+}
+
+#fieldset_form {
+	width: 400px;
+}
+
+.mailbox {
+	width: 350px;
+}
+
+#search_button {
+	float: right;
+}
+
+.logo {
+	text-decoration: none;
+	background-color: #FFF;
+}
+
+.logo:hover {
+	background-color: #FFF;
+}
+
+#content_login {
+	margin-left: 300px;
+}
+
+#create_form, .create_form {
+	width: 310px;
+}
+
+.form_input {
+	width: 165px;
+	margin-bottom: 5px;
+	text-indent: 2px;
+}
+
+.form_input3 {
+	width: 53px;
+	margin-bottom: 5px;
+	text-indent: 2px;	
+}
+
+.user_form_input {
+	width: 360px;
+	margin-bottom: 5px;
+	text-indent: 2px;
+}
+
+.user_form_input3 {
+	width: 118px;
+	margin-bottom: 5px;
+	text-indent: 2px;	
+}
+
+.login_form_input {
+	width: 295px;
+}
+
+.search_input {
+	margin-bottom: 10px;
+}
+
+.search_input select {
+	width: 400px;
+	text-indent: 2px;
+}
+
+.search_input input {
+	width: 194px;
+	text-indent: 2px;
+}
+
+#rememberme {
+	width: 220px;
+	margin-top: 5px;
+	margin-left: 81px;
+}
+
+#rememberme_label {
+	margin-left: 5px;
+}
+
+.login_button {
+	width: 100%;
+	margin-top: 5px;
+}
+
+.edit_button {
+	float: right;
+}
+
+#flash_error {
+	color: red;
+}
+#flash_alert {
+	color: red;
+}
+#flash_notice {
+	color: green;
+}
+
+.user_default_profile_picture {
+	width: 25px;
+	height: 15px;
+	background: #9DD729;
+	padding: 20px 20px;
+	border-radius: 50%;
+	color: #34495E;
+	font-size: 18px;
+}
+
+.user_default_profile_picture span {
+	width: 100%;
+	text-align: center;
+}

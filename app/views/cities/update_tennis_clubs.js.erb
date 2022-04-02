@@ -1,0 +1,31 @@
+var selector = "#user_tennis_club_id"
+var current_value = $(selector).val();
+$(selector).find("option").remove();
+$(selector).append("<option value=>Select Club</option>");
+<% @tennis_clubs.each do |tennis_club| %>
+   $(selector).append("<option value='<%=tennis_club.id%>'><%=tennis_club.full_name%></option>");
+<% end %>
+if(current_value != "")
+{
+	var options = $(selector)[0].options;
+	var option;
+	is_set = false;
+	for(var i=0; i<options.length; i++)
+	{
+		option = options[i];
+		if(option.value == current_value)
+		{
+			$(selector).val(current_value);
+			is_set = True;
+			break;
+		}
+	}
+	if(!is_set)
+	{
+		$(selector).val(options[0].val);
+	}
+}
+else
+{
+	$(selector).val(options[0].val);
+}

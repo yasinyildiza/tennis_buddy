@@ -1,0 +1,41 @@
+<fieldset class="index_set">
+  <legend>Tennis Clubs (<%= @tennis_clubs.count %>)</legend>
+  <%= button_to 'New Tennis Club', new_tennis_club_path, method: :get, class: :new_model_button %>
+
+<% if @tennis_clubs.count > 0 %>
+  <table>
+    <thead>
+      <tr>
+        <th>City</th>
+        <th>Name</th>
+        <th>Phone number</th>
+        <th>Address</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @tennis_clubs.each do |tennis_club| %>
+        <tr>
+          <td>
+            <% if tennis_club.city %>
+              <%= tennis_club.city.name %>
+            <% else %>
+              Not selected
+            <% end %>
+          </td>
+          <td><%= tennis_club.name %></td>
+          <td><%= tennis_club.phone_number %></td>
+          <td><%= tennis_club.address %></td>
+          <td><%= link_to 'Show', tennis_club %></td>
+          <td><%= link_to 'Edit', edit_tennis_club_path(tennis_club) %></td>
+          <td><%= link_to 'Destroy', tennis_club, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <h4>No Record found</h4>
+<% end %>
+
+</fieldset>

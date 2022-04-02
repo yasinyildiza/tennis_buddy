@@ -1,0 +1,77 @@
+<%= simple_form_for(@user) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <% if params[:action].to_s != 'edit' and params[:action].to_s != 'update' %>
+      <%= f.input :email, label: false, input_html: {class: :user_form_input}, placeholder: "example@domain.com" %>
+      <%= render partial: 'users/password_form', locals: {f: f} %>
+    <% end %>
+    
+    <%= f.input :name, input_html: {class: :user_form_input}, label: false, placeholder: "Name" %>
+    <%= f.input :surname, input_html: {class: :user_form_input}, label: false, placeholder: "Surname" %>
+    <%= f.input :age, input_html: {class: :user_form_input}, label: false, placeholder: "Age" %>
+    <%= f.input :birthday, input_html: {class: :user_form_input3}, placeholder: "Select Birthday", label: false, :as => :date, :start_year => 1900, :end_year => Date.today.year %>
+    <%= f.input :gender_id, collection: Gender.all.collect{|r| [r.name, r.id]}, as: :select, input_html: {class: :user_form_input}, label: false, prompt: "Select Gender" %>
+    <%= f.input :skill_level_id, collection: SkillLevel.all.collect{|r| [r.full_name, r.id]}, as: :select, input_html: {class: :user_form_input}, label: false, prompt: "Select Skill Level" %>
+    <%= f.input :city_id, collection: City.all.collect{|r| [r.name, r.id]}, as: :select, input_html: {class: :user_form_input}, label: false, prompt: "Select City" %>
+    <%= f.input :tennis_club_id, collection: TennisClub.all.collect{|r| [r.full_name, r.id]}, as: :select, input_html: {class: :user_form_input}, label: false, prompt: "Select Tennis Club" %>
+    <%= f.input :tennis_court_id, collection: TennisCourt.all.collect{|r| [r.full_name, r.id]}, as: :select, input_html: {class: :user_form_input}, label: false, prompt: "Select Tennis Court" %>
+    <%= f.input :profile_picture, input_html: {class: :user_form_input}, label: false %>
+    <%= f.input :about_me, input_html: {class: :user_form_input}, label: false, placeholder: "About Me" %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
+
+<script>
+
+$(document).ready(
+  function()
+  {
+    $("#user_city_id").change(
+      function()
+      {
+        update_city($(this).val());
+      }
+    )
+
+    var current_city = $("#user_city_id").val();
+    if(current_city != "")
+    {
+      update_city(current_city);
+    }
+    else
+    {
+      $('#user_tennis_club_id').find("option").remove();
+      $('#user_tennis_club_id').append("<option value>Select City</option>");
+      
+      $('#user_tennis_court_id').find("option").remove();
+      $('#user_tennis_court_id').append("<option value>Select City</option>");
+    }
+  }
+);
+
+function update_city(city_id) {
+  update_tennis_clubs(city_id);
+  update_tennis_courts(city_id);
+}
+
+function update_tennis_clubs(city_id) {
+  $.ajax({
+      url: "/cities/update_tennis_clubs",
+      type: 'GET',
+      data: {"city_id": city_id}
+  });
+}
+
+function update_tennis_courts(city_id) {
+  $.ajax({
+      url: "/cities/update_tennis_courts",
+      type: 'GET',
+      data: {"city_id": city_id}
+  });
+}
+
+</script>

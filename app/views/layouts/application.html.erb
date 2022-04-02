@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TennisBuddy</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag "jquery-ui", :media => "all" %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<%= link_to users_path, class: :logo do %>
+  <%= image_tag "tennis.png" %>
+<% end %>
+
+<% if current_user %>
+  <br/>
+  <br/>
+
+  <span id="left_links">
+    <%= link_to "Search", users_path %> |
+    <%= link_to "Models", model_list_path %> |
+    <%= link_to "Profile", current_user %> |
+    <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+  </span>
+
+  <br/>
+  <br/>
+
+  <div id="content"><%= yield %></div>
+<% else %>
+  <div id="content_login"><%= yield :authentication_item %></div>
+<% end %>
+
+</body>
+</html>

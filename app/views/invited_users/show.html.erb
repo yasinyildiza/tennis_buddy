@@ -1,0 +1,17 @@
+<p id="notice"><%= notice %></p>
+
+<fieldset id="create_form">
+  <legend>Invited User</legend>
+  <%= button_to 'Edit', edit_invited_user_path(@invited_user), method: :get, class: :edit_button %>  
+
+<p>
+  <strong>Inviter:</strong>
+  <%= link_to @invited_user.inviter.full_name, @invited_user.inviter %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @invited_user.email %>
+</p>
+
+</fieldset>

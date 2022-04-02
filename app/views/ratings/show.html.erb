@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<fieldset id="create_form">
+  <legend>Rating</legend>
+  <%= button_to 'Edit', edit_rating_path(@rating), method: :get, class: :edit_button %>
+
+<p>
+  <strong>Sender:</strong>
+  <%= link_to @rating.sender.full_name, @rating.sender %>
+</p>
+
+<p>
+  <strong>Receiver:</strong>
+  <%= link_to @rating.receiver.full_name, @rating.receiver %>
+</p>
+
+<p>
+  <strong>Rate:</strong>
+  <%= @rating.rate %>
+</p>
+
+</fieldset>

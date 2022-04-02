@@ -1,0 +1,43 @@
+<fieldset class="mailbox">
+  <%= button_to 'New Message', new_message_path, method: :get, class: :edit_button %>
+  <br/>
+  <br/>
+  <legend>Outbox (<%= current_user.sent_messages.count %>)</legend>
+  <% if current_user.sent_messages.count > 0 %>
+    <% current_user.sent_messages.each_with_index do |message, index| %>
+      <fieldset>
+        <legend><%= index+1 %></legend>
+        <%= message.created_at %><br/>
+        <strong>To:</strong>
+        <%= link_to message.receiver.full_name, message.receiver %><br/>
+        <strong><%= message.title %></strong><br/>
+        <%= message.content %><br/>
+        <%= link_to "Delete", message, method: :delete, data: { confirm: 'Are you sure?' }, style: "float: right;" %>
+      </fieldset>
+    <% end %>
+  <% else %>
+    <p>Empty</p>
+  <% end %>
+</fieldset>
+
+<fieldset class="mailbox">
+  <%= button_to 'New Rating', new_rating_path, method: :get, class: :edit_button %>
+  <br/>
+  <br/>
+  <legend>Sent Ratings (<%= current_user.sent_ratings.count %>)</legend>
+  <% if current_user.sent_ratings.count > 0 %>
+    <% current_user.sent_ratings.each_with_index do |rating, index| %>
+      <fieldset>
+        <legend><%= index+1 %></legend>
+        <%= rating.created_at %><br/>
+        <strong>To:</strong>
+        <%= link_to rating.receiver.full_name, rating.receiver %><br/>
+        <strong>Rate:</strong>
+        <%= rating.rate %><br/>
+        <%= link_to "Delete", rating, method: :delete, data: { confirm: 'Are you sure?' }, style: "float: right;" %>
+      </fieldset>
+    <% end %>
+  <% else %>
+    <p>Empty</p>
+  <% end %>
+</fieldset>

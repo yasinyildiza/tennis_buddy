@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<fieldset id="create_form">
+  <legend>City</legend>
+  <%= button_to 'Edit', edit_city_path(@city), method: :get, class: :edit_button %>
+
+<p>
+  <strong>Name:</strong>
+  <%= @city.name %>
+</p>
+
+<p>
+  <strong>Tennis clubs:</strong>
+</p>
+<% if @city.tennis_clubs.count > 0 %>
+  <% @city.tennis_clubs.each do |tennis_club| %>
+    <%= link_to tennis_club.full_name, tennis_club %><br/>
+  <% end %>
+<% else %>
+  <p>-</p>
+<% end %>
+
+<br/>
+
+<p>
+  <strong>Tennis courts:</strong>
+</p>
+<% if @city.tennis_courts.count > 0 %>
+  <% @city.tennis_courts.each do |tennis_court| %>
+    <%= link_to tennis_court.full_name, tennis_court %><br/>
+  <% end %>
+<% else %>
+  <p>-</p>
+<% end %>
+
+<br/>
+
+<p>
+  <strong>Users:</strong>
+</p>
+<% if @city.users.count > 0 %>
+  <% @city.users.each do |user| %>
+    <%= link_to user.full_name, user %><br/>
+  <% end %>
+<% else %>
+  <p>-</p>
+<% end %>
+
+</fieldset>

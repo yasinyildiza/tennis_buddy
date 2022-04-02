@@ -1,0 +1,22 @@
+<%= simple_form_for(@user_match) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <% if @home_user %>
+      <%= f.input :home_user_id, as: :hidden, input_html: {value: @home_user.id} %>
+      <%= f.input :away_user_id, collection: User.where("id != #{@home_user.id}").collect{|r| [r.full_name, r.id]}, as: :select, input_html: {class: :form_input}, label: false, prompt: "Select Your Opponent" %>
+    <% elsif @away_user %>
+      <%= f.input :away_user_id, as: :hidden, input_html: {value: @away_user.id} %>
+      <%= f.input :home_user_id, collection: User.where("id != #{@away_user.id}").all.collect{|r| [r.full_name, r.id]}, as: :select, input_html: {class: :form_input}, label: false, prompt: "Select Your Opponent" %>
+    <% else %>
+      <%= f.input :home_user_id, collection: User.all.collect{|r| [r.full_name, r.id]}, as: :select, input_html: {class: :form_input}, label: false, prompt: "Select Home User" %>
+      <%= f.input :away_user_id, collection: User.all.collect{|r| [r.full_name, r.id]}, as: :select, input_html: {class: :form_input}, label: false, prompt: "Select Away User" %>
+    <% end %>
+    <%= f.input :tennis_court_id, collection: TennisCourt.all.collect{|r| [r.full_name, r.id]}, as: :select, input_html: {class: :form_input}, label: false, prompt: "Select Tennis Court" %>
+    <%= f.input :number_of_sets, collection: [3, 5], as: :select, input_html: {class: :form_input}, label: false, prompt: "Select Number of Sets" %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

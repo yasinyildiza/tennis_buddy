@@ -1,0 +1,13 @@
+<%= simple_form_for(@skill_level) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :name, label: false, input_html: {class: :form_input}, placeholder: "Name" %>
+    <%= f.input :minimum_years, label: false, input_html: {class: :form_input}, placeholder: "Minimum Years" %>
+    <%= f.input :maximum_years, label: false, input_html: {class: :form_input}, placeholder: "Maximum Years" %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

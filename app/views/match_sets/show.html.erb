@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<fieldset id="create_form">
+  <legend>Match Set</legend>
+  <%= button_to 'Edit', edit_match_set_path(@match_set), method: :get, class: :edit_button %>
+
+<p>
+  <strong>Match Set ID:</strong>
+  <%= link_to @match_set.user_match.id, @match_set.user_match %>
+</p>
+
+<p>
+  <strong><%= @match_set.user_match.home_user.full_name %> (Home) Score:</strong>
+  <%= @match_set.home_user_score %>
+</p>
+
+<p>
+  <strong><%= @match_set.user_match.away_user.full_name %> (Away) Score:</strong>
+  <%= @match_set.away_user_score %>
+</p>
+
+</fieldset>

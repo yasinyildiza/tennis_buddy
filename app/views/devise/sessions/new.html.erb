@@ -1,0 +1,30 @@
+<%= content_for :authentication_item do %>
+
+  <fieldset id="create_form">
+
+    <div id="flash_error"><%= flash[:error] %></div>
+    <div id="flash_alert"><%= flash[:alert] %></div>
+    <div id="flash_notice"><%= flash[:notice] %></div>
+
+    <legend>Sign In</legend>
+      <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div class="form-inputs">
+          <%= f.input :email, autofocus: true, label: false, input_html: {class: "form_input login_form_input"}, placeholder: "abc@def.com" %>
+          <%= f.input :password, label: false, input_html: {class: "form_input login_form_input"}, placeholder: "Password" %>
+        </div>
+
+        <% if devise_mapping.rememberable? -%>
+          <div id="rememberme">
+            <%= f.check_box :remember_me, id: :rememberme_checkbox %>
+            <%= f.label "Remember Me", id: :rememberme_label %>
+          </div>
+        <% end -%>
+
+        <div class="form-actions">
+          <%= f.button :submit, "Sign In", class: :login_button, id: :signin_button %>
+        </div>
+      <% end %>
+      <%= button_to "Sign Up", new_user_path, class: "btn login_button", id: :signup_button, method: :get %>
+  </fieldset>
+  
+<% end %>

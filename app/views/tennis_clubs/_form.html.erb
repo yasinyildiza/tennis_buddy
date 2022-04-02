@@ -1,0 +1,14 @@
+<%= simple_form_for(@tennis_club) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :city_id, collection: City.all.collect{|r| [r.name, r.id]}, as: :select, input_html: {class: :form_input}, label: false, prompt: "Select City" %>
+    <%= f.input :name, label: false, input_html: {class: :form_input}, placeholder: "Name" %>
+    <%= f.input :phone_number, label: false, input_html: {class: :form_input}, placeholder: "Phone Number" %>
+    <%= f.input :address, label: false, input_html: {class: :form_input}, placeholder: "Address" %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

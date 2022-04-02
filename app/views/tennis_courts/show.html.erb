@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<fieldset id="create_form">
+  <legend>Tennis Court</legend>
+  <%= button_to 'Edit', edit_tennis_court_path(@tennis_court), method: :get, class: :edit_button %>
+
+<p>
+  <strong>City:</strong>
+  <% if @tennis_court.city %>
+    <%= link_to @tennis_court.city.name, @tennis_court.city %>
+  <% else %>
+    Not selected
+  <% end %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @tennis_court.name %>
+</p>
+
+<p>
+  <strong>Phone number:</strong>
+  <%= @tennis_court.phone_number %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @tennis_court.address %>
+</p>
+
+<br/>
+
+<p>
+  <strong>Users:</strong>
+</p>
+<% if @tennis_court.users.count > 0 %>
+  <% @tennis_court.users.each do |user| %>
+    <%= link_to user.full_name, user %><br/>
+  <% end %>
+<% else %>
+  <p>-</p>
+<% end %>
+
+</fieldset>

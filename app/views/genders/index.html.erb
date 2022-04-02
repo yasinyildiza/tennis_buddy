@@ -1,0 +1,29 @@
+<fieldset class="index_set">
+  <legend>Genders (<%= @genders.count %>)</legend>
+  <%= button_to 'New Gender', new_gender_path, method: :get, class: :new_model_button %>
+
+<% if @genders.count > 0 %>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @genders.each do |gender| %>
+        <tr>
+          <td><%= gender.name %></td>
+          <td><%= link_to 'Show', gender %></td>
+          <td><%= link_to 'Edit', edit_gender_path(gender) %></td>
+          <td><%= link_to 'Destroy', gender, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <h4>No Record found</h4>
+<% end %>
+
+</fieldset>

@@ -1,0 +1,33 @@
+<fieldset class="index_set">
+  <legend>Match Sets (<%= @match_sets.count %>)</legend>
+  <%= button_to 'New Match Set', new_match_set_path, method: :get, class: :new_model_button %>
+
+<% if @match_sets.count > 0 %>
+  <table>
+    <thead>
+      <tr>
+        <th>Match ID</th>
+        <th>Home User Score</th>
+        <th>Away User Score</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @match_sets.each do |match_set| %>
+        <tr>
+          <td><%= match_set.user_match.id %></td>
+          <td><%= match_set.home_user_score %></td>
+          <td><%= match_set.away_user_score %></td>
+          <td><%= link_to 'Show', match_set %></td>
+          <td><%= link_to 'Edit', edit_match_set_path(match_set) %></td>
+          <td><%= link_to 'Destroy', match_set, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <h4>No Record found</h4>
+<% end %>
+
+</fieldset>

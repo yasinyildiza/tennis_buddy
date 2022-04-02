@@ -1,0 +1,17 @@
+<fieldset id="create_form">
+  <legend>New Broadcast to <%= name %></legend>
+
+	<%= simple_form_for @message, url: url_for(action: path, controller: :messages), method: :post do |f| %>
+	  <%= f.error_notification %>
+
+	  <div class="form-inputs">
+	    <%= f.input :title, input_html: {class: :form_input}, label: false, placeholder: "Title" %>
+	    <%= f.input :content, input_html: {class: :form_input}, label: false, placeholder: "Message" %>
+	  </div>
+
+	  <div class="form-actions">
+	    <%= f.button :submit %>
+	  </div>
+	<% end %>
+
+</fieldset>

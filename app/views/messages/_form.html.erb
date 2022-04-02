@@ -1,0 +1,51 @@
+<% if @reply_to != nil %>
+  <p>
+    <strong>Sender:</strong>
+    <%= link_to @reply_to.sender.full_name, @reply_to.sender %>
+  </p>
+
+  <p>
+    <strong>Receiver:</strong>
+    <%= link_to @reply_to.receiver.full_name, @reply_to.receiver %>
+  </p>
+
+  <p>
+    <strong>Title:</strong>
+    <%= @reply_to.title %>
+  </p>
+
+  <p>
+    <strong>Content:</strong>
+    <%= @reply_to.content %>
+  </p>
+
+  <p>
+    <strong>Time:</strong>
+    <%= @reply_to.created_at %>
+  </p>
+<% end %>
+
+<%= simple_form_for(@message) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :sender_id, as: :hidden, input_html: {value: current_user.id} %>
+    <% if @reply_to != nil %>
+      <%= f.input :receiver_id, as: :hidden, input_html: {value: @reply_to.sender.id} %>
+    <% else %>
+      <% if params[:receiver_id] %>
+        <%= f.input :receiver_id, as: :hidden, input_html: {value: params[:receiver_id]} %>
+        <%= f.label "To: " %>
+        <%= link_to @receiver.full_name, @receiver %>
+      <% else %>
+        <%= f.input :receiver_id, collection: User.where("id != #{current_user.id}").collect{|r| [r.full_name, r.id]}, as: :select, input_html: {class: :form_input}, label: false, prompt: "Select User" %>
+      <% end %>
+    <% end %>
+    <%= f.input :title, label: false, input_html: {class: :form_input}, placeholder: "Title" %>
+    <%= f.input :content, label: false, input_html: {class: :form_input}, placeholder: "Message" %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

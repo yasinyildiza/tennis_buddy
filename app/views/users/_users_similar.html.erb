@@ -1,0 +1,18 @@
+<% if current_user.send(object) %>
+  <fieldset class="create_form">
+    <legend>Users from <%= link_to current_user.send(object).send(object_name), current_user.send(object) %></legend>
+      <% if current_user.send(object).users.count > 1 %>
+        <% current_user.send(object).users.each do |user| %>
+          <% if user != current_user %>
+            <%= link_to user.full_name, user %> |
+            <%= link_to "Message", new_message_path %> |
+            <%= link_to "Rate", new_rating_path %><br/>
+          <% end %>
+        <% end %>
+      <% else %>
+        <p>No other users from <%= link_to current_user.send(object).send(object_name), current_user.send(object) %></p>
+      <% end %>
+
+      <p><%= button_to "Broadcast message to #{current_user.send(object).send(object_name)}", path, method: :get, class: :action_button %></p>
+  </fieldset>
+<% end %>

@@ -1,0 +1,145 @@
+<p id="notice"><%= notice %></p>
+
+<fieldset class="create_form">
+  <legend>User</legend>
+  <% if @user == current_user %>
+    <%= button_to 'Edit', edit_user_path(@user), method: :get, class: :edit_button %>
+    <%= button_to 'Matches', users_matches_path, method: :get, class: :edit_button %>
+    <%= button_to 'Similar Users', similar_users_path, method: :get, class: :edit_button %>
+    <%= button_to 'Outbox', user_outbox_path, method: :get, class: :edit_button %>
+    <%= button_to 'Inbox', user_inbox_path, method: :get, class: :edit_button %>
+  <% else %>
+    <%= link_to 'Rate', new_rating_path(receiver_id: @user.id), class: :edit_button %>
+    <div class="edit_button"> | </div>
+    <%= link_to 'Message', new_message_path(receiver_id: @user.id), class: :edit_button %>
+  <% end %>
+
+  <br/>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong>Surname:</strong>
+  <%= @user.surname %>
+</p>
+
+<p>
+  <strong>Birthday:</strong>
+  <%= @user.birthday %>
+</p>
+
+<p>
+  <strong>Profile picture:</strong>
+  <% if @user.profile_picture.thumb.url.to_s != "" %>
+    <%= image_tag(@user.profile_picture.thumb.url.to_s) %>
+  <% else %>
+    <div class="user_default_profile_picture">
+      <span><%= @user.name[0, 1].capitalize %>.<%= @user.surname[0, 1].capitalize %>.</span>
+    </div>
+  <% end %>
+</p>
+
+<p>
+  <strong>Gender:</strong>
+  <% if @user.gender %>
+    <%= link_to @user.gender.name, @user.gender %>
+  <% else %>
+    Not selected
+  <% end %>
+</p>
+
+<p>
+  <strong>Age:</strong>
+  <%= @user.age %>
+</p>
+
+<p>
+  <strong>Tennis club:</strong>
+  <% if @user.tennis_club %>
+    <%= link_to @user.tennis_club.full_name, @user.tennis_club %>
+  <% else %>
+    Not selected
+  <% end %>
+</p>
+
+<p>
+  <strong>Preferred Tennis Court:</strong>
+  <% if @user.tennis_court %>
+    <%= link_to @user.tennis_court.full_name, @user.tennis_court %>
+  <% else %>
+    Not selected
+  <% end %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <% if @user.city %>
+    <%= link_to @user.city.name, @user.city %>
+  <% else %>
+    Not selected
+  <% end %>
+</p>
+
+<p>
+  <strong>Skill level:</strong>
+  <% if @user.skill_level %>
+    <%= link_to @user.skill_level.full_name, @user.skill_level %>
+  <% else %>
+    Not selected
+  <% end %>
+</p>
+
+<p>
+  <strong>Matches Won:</strong>
+  <%= @user.matches_won.count %>
+</p>
+
+<p>
+  <strong>Matches Lost:</strong>
+  <%= @user.matches_lost.count %>
+</p>
+
+<p>
+  <strong>Sets Won:</strong>
+  <%= @user.sets_won %>
+</p>
+
+<p>
+  <strong>Sets Lost:</strong>
+  <%= @user.sets_lost %>
+</p>
+
+<p>
+  <strong>Games Won:</strong>
+  <%= @user.games_won %>
+</p>
+
+<p>
+  <strong>Games Lost:</strong>
+  <%= @user.games_lost %>
+</p>
+
+<p>
+  <strong>Average rating:</strong>
+  <%= @user.average_rating %>
+  <% if @user.received_ratings.count > 0 %>
+    (rated <%= @user.received_ratings.count %> times)
+  <% end %>
+</p>
+
+<p><strong>About me:</strong></p>
+<p><%= @user.about_me %></p>
+
+<% if @user == current_user %>
+  <p><%= button_to "Delete My Account", @user, method: :delete, data: { confirm: 'Are you sure?' }, class: :actionbutton %></p>
+<% end %>
+
+</fieldset>
